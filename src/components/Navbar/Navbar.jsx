@@ -9,11 +9,11 @@ const Navbar = () => {
         <BNavbar.Brand href="#home">RevHouse Participations</BNavbar.Brand>
         <BNavbar.Toggle aria-controls="basic-navbar-nav" />
         <BNavbar.Collapse id="basic-navbar-nav">
-          <Form/>
+          <Form />
         </BNavbar.Collapse>
       </Container>
     </BNavbar>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
