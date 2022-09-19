@@ -2,7 +2,8 @@ import BForm from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { handleChange, handleSubmit } from './handlersForm';
+import constants from '../../config/constants';
+
 
 const { Group: BGroup, Control: BControl } = BForm;
 
@@ -14,8 +15,27 @@ const Form = ({ refetch }) => {
     color: '',
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    refetch(constants.createUser, 'post', inputValues);
+    setInputValues({
+      name: '',
+      lastName: '',
+      percent: '',
+      color: '',
+    })
+  };
+  const handleChange = (e) => {
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
-    <BForm onSubmit={(e) => handleSubmit(e, inputValues, setInputValues, refetch)}>
+    <BForm
+      onSubmit={handleSubmit}
+    >
       <BGroup>
         <Row>
           <Col md={2}>
@@ -24,7 +44,7 @@ const Form = ({ refetch }) => {
               placeholder="First Name"
               name="name"
               value={inputValues.name}
-              onChange={(e) => handleChange(e, inputValues, setInputValues)}
+              onChange={handleChange}
               required
             />
           </Col>
@@ -51,7 +71,7 @@ const Form = ({ refetch }) => {
           </Col>
           <Col md={2}>
             <BControl
-              type="number"
+              type="text"
               placeholder="Color"
               name="color"
               value={inputValues.color}
@@ -61,7 +81,7 @@ const Form = ({ refetch }) => {
               required
             />
           </Col>
-          <Col md='auto'>
+          <Col md="auto">
             <Button variant="outline-light" type="submit">
               Send
             </Button>

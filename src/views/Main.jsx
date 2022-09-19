@@ -5,11 +5,20 @@ import UserList from '../components/UserList/UserList';
 import Graphics from '../components/Graphics/Graphics';
 import { Col, Container, Row } from 'react-bootstrap';
 import Spinner from '../components/Loader/Spinner';
+import toast, { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
 
 const Main = () => {
   const { data, loading, error, refetch } = useFetch(constants.getUsers);
-  if (error) {
-  }
+  useEffect(() => {
+    if (error) {
+      console.log("🚀 ~ file: Main.jsx ~ line 13 ~ Main ~ error", error)
+      
+      // error?.map((e) => toast.error(e.msg));
+      toast.error(error[0].msg)
+    }
+  }, [error])
+  
 
   return (
     <Container fluid className="border rounded p-0 border border-0">
@@ -36,6 +45,7 @@ const Main = () => {
           </Col>
         </Row>
       )}
+      <Toaster />
     </Container>
   );
 };

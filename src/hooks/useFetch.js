@@ -13,7 +13,7 @@ const useFetch = (url) => {
         setData(res.data);
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.errors);
       })
       .finally(() => {
         setLoading(false);
@@ -32,7 +32,7 @@ const useFetch = (url) => {
         setData(newData);
       })
       .catch((err) => {
-        setError(err);
+        setError(err.response.data.errors);
       })
       .finally(() => {
         setLoading(false);
