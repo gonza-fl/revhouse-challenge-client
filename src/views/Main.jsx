@@ -3,22 +3,40 @@ import useFetch from '../hooks/useFetch';
 import constants from '../config/constants';
 import UserList from '../components/UserList/UserList';
 import Graphics from '../components/Graphics/Graphics';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import Spinner from '../components/Loader/Spinner';
 
 const Main = () => {
   const { data, loading, error, refetch } = useFetch(constants.getUsers);
-  if (loading) return <h5>loading...</h5>;
   if (error) {
   }
 
   return (
-    <>
-      <Navbar refetch={refetch} />
-      <Container className="mt-5 bg-light border rounded p-4 d-flex justify-content-around">
-        <UserList users={data} />
-        <Graphics users={data} />
+    <Container fluid className="border rounded p-0 border border-0">
+      <Row className="bg-info">
+        <Col md={12} className="d-flex justify-content-center">
+          <Navbar refetch={refetch} />
+        </Col>
+      </Row>
+      {(loading && (
+        <Container className='p-5'>
+        <Row className="d-flex justify-content-center py-2 px-5">
+          <Col md='auto'>
+            <Spinner />
+          </Col>
+        </Row>
       </Container>
-    </>
+      )) || (
+        <Row className="d-flex justify-content-around py-2 px-5">
+          <Col md={6} className="d-flex align-items-center">
+            <UserList users={data} />
+          </Col>
+          <Col md={4} className="d-flex align-items-center">
+            <Graphics users={data} />
+          </Col>
+        </Row>
+      )}
+    </Container>
   );
 };
 

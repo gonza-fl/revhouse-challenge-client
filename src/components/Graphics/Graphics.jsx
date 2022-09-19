@@ -1,25 +1,16 @@
-import { Chart, ArcElement } from 'chart.js';
-import { Col } from 'react-bootstrap';
-import { Pie } from 'react-chartjs-2';
-Chart.register(ArcElement);
+import { Chart, ArcElement, Legend, Tooltip, Title } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+import { data, options } from './dataChart';
+Chart.defaults.color = '#212529';
+Chart.register(ArcElement, Legend, Tooltip, Title);
 
 const Graphics = ({ users }) => {
-  const data = {
-    labels: users?.map((el) => el.name),
-    datasets: [
-      {
-        data: users?.map((el) => el.participation?.percent),
-        backgroundColor: users?.map((el) => el.participation?.color),
-      },
-    ],
-  };
-  const options = {
-    responsive: true,
-  };
+  
   return (
-    <Col md={3}>
-      <Pie data={data} options={options} />
-    </Col>
+    <Doughnut
+      data={data(users)}
+      options={options}
+    />
   );
 };
 
